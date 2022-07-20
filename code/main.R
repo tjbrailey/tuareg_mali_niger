@@ -66,3 +66,7 @@ df_cpa_mali_niger_long <- df_cpa_mali_niger %>%
 source(paste0(fp_code, "/vis_tuareg_map.R"))
 
 source(paste0(fp_code, "/vis_cpa_implementation.R"))
+
+source(paste0(fp_code, "/tab_country_characteristics.R"))
+
+source(paste0(fp_code, "/man_numbers.R"))
