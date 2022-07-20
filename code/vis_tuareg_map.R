@@ -2,7 +2,7 @@
 ######
 
 # Create plot
-map <- 
+plot_tuareg_map <- 
   ggplot() +
   geom_sf(data = df_shp_tuareg, fill = "#e6d073", aes(color = "Tuareg Region"), alpha = .7) +
   geom_sf(data = df_shp_africa, color = "gray", fill = NA) +
@@ -21,8 +21,9 @@ map <-
     axis.title.x = element_blank(),
     axis.title.y = element_blank(),   
     text = element_text(size = 18, family = "Times")) 
-map
+plot_tuareg_map
 
 # Save plot
-ggsave(plot = map, filename = paste0(fp_figures, "/vis_tuareg_map.pdf"), device = cairo_pdf(),
+ggsave(plot = plot_tuareg_map, filename = paste0(fp_figures, "/vis_tuareg_map.pdf"), 
+       device = cairo_pdf,
        height = 10, width = 10)
