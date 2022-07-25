@@ -2,6 +2,8 @@
 # create tuareg subset
 df_shp_tuareg <- dplyr::filter(df_shp_ethnic_groups, group == "Tuareg") %>% dplyr::distinct(statename, .keep_all = TRUE)
 
+sf::st_crs(df_shp_tuareg) <- 4326
+
 # add crs to africa shapefile
 sf::st_crs(df_shp_africa) <- 4326
 
@@ -22,22 +24,51 @@ df_cpa_mali_niger_long <- df_cpa_mali_niger %>%
                 remove = ifelse(remove > 0, 0, 1)) %>%
   dplyr::filter(remove != 1)
 
-# join health site data together
-unique(df_niger_healthsite$type)
+# geolocate healthsites
+df_mali_healthsite_sub <- df_mali_healthsite %>% 
+  dplyr::filter(!is.na(Longitude)) %>%
+  sf::st_as_sf(., coords = c("Longitude", "Latitude"), crs = 4326) %>% 
+  dplyr::mutate(tuareg_region  = as.numeric(sf::st_intersects(., df_shp_tuareg)),
+                tuareg_region  = ifelse(is.na(tuareg_region), 0, tuareg_region),
+                DATE.OUVERTURE = as.Date(DATE.OUVERTURE, "%d-%b-%Y"),
+                year           = as.numeric(stringr::str_extract(DATE.OUVERTURE, "^.{4}")),
+                intervention   = ifelse(year < 2000, 0, 1)) %>% 
+  dplyr::filter(year <= 2022 & year >= 1990) 
 
-df_niger_healthsite_points <- df_niger_healthsite %>% 
-  dplyr::filter(type == "Point") %>% 
-  dplyr::mutate(geometry = purrr::map(coordinates, sf::st_point)) %>% 
-  sf::st_as_sf()
-
-df_niger_healthsite_polygons <- df_niger_healthsite %>% 
-  dplyr::filter(type == "Polygon") %>%
-  dplyr::mutate(coordinates = purrr::map(coordinates, matrix)) %>%
-  dplyr::mutate(coordinates = purrr::map(coordinates, list)) %>%
-  dplyr::mutate(geometry = purrr::map(coordinates, sf::st_sfc)) %>%
-  dplyr::mutate(geometry = purrr::map(coordinates, sf::st_polygon))
+# collapse data
+df_mali_healthsite_sub_collapse <-
+  df_mali_healthsite_sub %>% 
+  tibble::as_tibble() %>% 
+  dplyr::select(-geometry) %>%
+  dplyr::group_by(year, intervention, tuareg_region) %>% 
+  dplyr::summarize(healthsites = dplyr::n()) %>%
+  dplyr::group_by(year) %>%
+  dplyr::mutate(total_healthsites = sum(healthsites, na.rm = TRUE),
+                pct_healthsites   = healthsites / total_healthsites)
 
 # subset conflict data
+vec_years <- c(1997:2003)
 
+df_conflict_tuareg <- 
+  df_conflict %>% 
+  dplyr::filter(!is.na(longitude)) %>%
+  sf::st_as_sf(., coords = c("longitude", "latitude"), crs = 4326) %>%
+  dplyr::mutate(tuareg_region = as.numeric(sf::st_intersects(., df_shp_tuareg)),
+                tuareg_region = ifelse(is.na(tuareg_region), 0, 1)) %>%
+  dplyr::filter(country %in% c("Niger", "Mali"),
+                year %in% c(vec_years)) %>% 
+  dplyr::mutate(intervention = ifelse(year < 2000, 0, 1)) 
+
+# collapse data
+df_conflict_tuareg_sub <- 
+  df_conflict_tuareg %>% 
+  dplyr::group_by(country, year, intervention, tuareg_region) %>% 
+  dplyr::summarise(incidents  = dplyr::n(),
+                   fatalities = sum(fatalities, na.rm = TRUE)) %>% 
+  dplyr::group_by(country, year) %>%
+  dplyr::mutate(total_incidents  = sum(incidents, na.rm = TRUE),
+                pct_incidents    = incidents / total_incidents,
+                total_fatalities = sum(fatalities, na.rm = TRUE),
+                pct_fatalities   = fatalities / total_fatalities)
 
   
