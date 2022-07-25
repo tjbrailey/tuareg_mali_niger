@@ -35,8 +35,9 @@ df_shp_niger         <- sf::st_read(paste0(fp_data_map, "/niger_shapefile/gadm36
 df_shp_africa        <- sf::st_read(paste0(fp_data_map, "/africa_shapefile/Africa.shp"))
 df_country_charas    <- read.csv(paste0(fp_data, "/country_characteristics.csv"))
 df_cpa               <- read.csv(paste0(fp_data, "/pam_peace_agreements.csv"))
-df_mali_healthsite   <- read.csv(paste0(fp_data, "/mali_healthsites_multiple_source.csv"))
+df_mali_healthsite   <- read.csv(paste0(fp_data, "/unicef_mali_healthsites.csv"))
 df_niger_healthsite  <- readRDS(paste0(fp_data, "/niger_healthsites_multiple_source.rds"))
+df_conflict          <- read.csv(paste0(fp_data, "/acled_conflict_Africa_1997_2022.csv"))
 
 ######################################################################################################################################################
 ###### wrangle data
