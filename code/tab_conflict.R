@@ -3,6 +3,8 @@
 
 # exploratory visualizations
 
+# using acled data
+
 # geographic distributions of conflict in the mali/niger region 
 ggplot() +
   geom_sf(data = df_shp_mali) + 
@@ -74,4 +76,5 @@ df_conflict_tuareg_sub %>%
   dplyr::summarise(incidents  = dplyr::n(),
                    fatalities = sum(fatalities, na.rm = TRUE))
 
+# using prio data
 
