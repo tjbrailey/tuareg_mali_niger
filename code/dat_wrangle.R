@@ -71,4 +71,9 @@ df_conflict_tuareg_sub <-
                 total_fatalities = sum(fatalities, na.rm = TRUE),
                 pct_fatalities   = fatalities / total_fatalities)
 
-  
+# subset prio data and reshape
+df_conflict_prio_sub <-
+  df_conflict_prio %>% 
+  dplyr::filter(country %in% c("Niger", "Mali", "Burkina Faso", "Algeria", "Libya"))
+
+
