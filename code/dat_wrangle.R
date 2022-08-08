@@ -46,6 +46,15 @@ df_mali_healthsite_sub_collapse <-
   dplyr::mutate(total_healthsites = sum(healthsites, na.rm = TRUE),
                 pct_healthsites   = healthsites / total_healthsites)
 
+# look at just 1996 - 2011
+df_mali_healthsite_sub_collapse_1996 <- 
+  df_mali_healthsite_sub_collapse %>% 
+  dplyr::filter(year >= 1996) %>% 
+  dplyr::group_by(tuareg_region) %>% 
+  dplyr::mutate(cum_total_healthsites = sum(healthsites, na.rm = TRUE),
+                cum_healthsites       = cumsum(healthsites),
+                cum_healthsites_pct   = cum_healthsites / cum_total_healthsites)
+
 # subset conflict data
 vec_years <- c(1997:2003)
 
@@ -69,7 +78,8 @@ df_conflict_tuareg_sub <-
   dplyr::mutate(total_incidents  = sum(incidents, na.rm = TRUE),
                 pct_incidents    = incidents / total_incidents,
                 total_fatalities = sum(fatalities, na.rm = TRUE),
-                pct_fatalities   = fatalities / total_fatalities)
+                pct_fatalities   = fatalities / total_fatalities,
+                pct_fatalities   = ifelse(is.nan(pct_fatalities), 0, pct_fatalities))
 
 # subset prio data and reshape
 df_conflict_prio_sub <-

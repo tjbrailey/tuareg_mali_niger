@@ -11,6 +11,7 @@ plot_cum_imp_score <- df_cpa_mali_niger %>%
   theme(
     legend.position = c(0.1, 0.95),
     text = element_text(size = 18, family = "Times"))
+plot_cum_imp_score
 
 ggsave(plot = plot_cum_imp_score, filename = paste0(fp_figures, "/vis_cumulative_implementation_score.pdf"), 
        device = cairo_pdf,
@@ -27,7 +28,8 @@ df_lines <- data.frame(country = c("Mali", "Niger"), intercept = c(vec_total_pro
 
 plot_provis_imp <-
   ggplot() +
-  geom_area(data = df_cpa_mali_niger_long, mapping = aes(x = year, y = value, fill = name)) + 
+  geom_area(data = df_cpa_mali_niger_long, mapping = aes(x = year, y = value, fill = name)) +
+  geom_line(data = df_cpa_mali_niger_long, mapping = aes(x = year, y = value, group = name), color = "white", position = "stack") + 
   geom_hline(data = df_lines, mapping = aes(yintercept = intercept), linetype = "dashed") + 
   scale_x_continuous(limits = c(1990, 2005), breaks = seq(1990, 2005, 5)) + 
   scale_fill_discrete(
@@ -55,6 +57,7 @@ plot_provis_imp <-
   theme(
     legend.background = element_blank(), 
     text = element_text(size = 18, family = "Times"))
+plot_provis_imp
 
 ggsave(plot = plot_provis_imp, filename = paste0(fp_figures, "/vis_provision_implementation.pdf"), 
        device = cairo_pdf,
