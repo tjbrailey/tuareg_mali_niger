@@ -69,7 +69,7 @@ ggplot(df_conflict_tuareg_sub, mapping = aes(x = year, y = pct_incidents, color 
   theme()
 
 # tabulation of fatalities by year and by tuareg region
-tab_conflict_tuareg_sub <- df_conflict_tuareg_sub %>% 
+df_conflict_tuareg_sub_fatalities <- df_conflict_tuareg_sub %>% 
   tibble::as_tibble(.) %>%
   dplyr::select(-geometry) %>%
   dplyr::group_by(country, intervention, tuareg_region) %>% 
@@ -80,9 +80,9 @@ tab_conflict_tuareg_sub <- df_conflict_tuareg_sub %>%
     Intervention = intervention,
     `Tuareg region` = tuareg_region) %>% 
   as.matrix(.)
-tab_conflict_tuareg_sub
+df_conflict_tuareg_sub_fatalities
 
-tab_conflict_tuareg_sub <- stargazer::stargazer(tab_conflict_tuareg_sub, float = FALSE, model.numbers = TRUE)
+tab_conflict_tuareg_sub <- stargazer::stargazer(df_conflict_tuareg_sub_fatalities, float = FALSE, model.numbers = TRUE)
 starpolishr::star_tex_write(starlist = tab_conflict_tuareg_sub, file = paste0(fp_tables, "/tab_conflict.tex"))
 
 # using prio data

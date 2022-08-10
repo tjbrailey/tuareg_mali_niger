@@ -56,7 +56,7 @@ source(paste0(fp_code, "/vis_cpa_implementation.R"))
 
 source(paste0(fp_code, "/tab_country_characteristics.R"))
 
-source(paste0(fp_code, "/tab_health_services.R"))
+source(paste0(fp_code, "/vis_health_services.R"))
 
 source(paste0(fp_code, "/tab_conflict.R"))
 
