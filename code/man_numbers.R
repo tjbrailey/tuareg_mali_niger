@@ -23,3 +23,12 @@ fxn_pct_change(
 ### max ratio of tuareg healthsites in mali
 max(df_mali_healthsite_sub_collapse$pct_healthsites[df_mali_healthsite_sub_collapse$tuareg_region == 1])
 df_mali_healthsite_sub_collapse$pct_healthsites[df_mali_healthsite_sub_collapse$year == 2000]
+
+### percentage change in tuareg healthsite proliferation
+fxn_pct_change(
+  end_val = df_mali_healthsite_sub_collapse$pct_healthsites[
+    df_mali_healthsite_sub_collapse$year == 1996 & df_mali_healthsite_sub_collapse$tuareg_region == 1],
+  start_val   = df_mali_healthsite_sub_collapse$pct_healthsites[
+    df_mali_healthsite_sub_collapse$year == 2000 & df_mali_healthsite_sub_collapse$tuareg_region == 1],
+  sig_fig   = 2
+)
