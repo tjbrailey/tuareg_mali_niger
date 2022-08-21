@@ -85,5 +85,27 @@ df_conflict_tuareg_sub_fatalities
 tab_conflict_tuareg_sub <- stargazer::stargazer(df_conflict_tuareg_sub_fatalities, float = FALSE, model.numbers = TRUE)
 starpolishr::star_tex_write(starlist = tab_conflict_tuareg_sub, file = paste0(fp_tables, "/tab_conflict.tex"))
 
-# using prio data
+lm(data = df_conflict_tuareg, fatalities ~ intervention * tuareg_region + as.factor(country)) %>% summary()
 
+# total conflict trends across all years
+plot_conflict_all_years <- df_conflict %>% 
+  dplyr::filter(country %in% c("Mali", "Niger")) %>% 
+  dplyr::group_by(country, year) %>% 
+  dplyr::summarise(incidents = dplyr::n(),
+                   fatalities = sum(fatalities, na.rm = TRUE)) %>% 
+  tidyr::pivot_longer(cols = c(incidents, fatalities)) %>% 
+  ggplot(., mapping = aes(x = year, y = value, linetype = country)) + 
+  geom_line(size = 1) + 
+  facet_wrap(
+    . ~ name, 
+    labeller = as_labeller(
+      c(fatalities = "Fatalities", 
+        incidents = "Incidents"))) + 
+  labs(x = "Year", y = "Raw count", color = "", linetype = "") +   
+  theme_minimal() +
+  theme(text = element_text(size = 36, family = "Times"),
+        legend.position = c(0.1,1))
+plot_conflict_all_years
+
+ggsave(plot = plot_conflict_all_years, file = paste0(fp_figures, "/vis_conflict_all_years.pdf"), 
+       device = cairo_pdf)
