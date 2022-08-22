@@ -96,6 +96,7 @@ plot_conflict_all_years <- df_conflict %>%
   tidyr::pivot_longer(cols = c(incidents, fatalities)) %>% 
   ggplot(., mapping = aes(x = year, y = value, linetype = country)) + 
   geom_line(size = 1) + 
+  geom_point(size = 2) + 
   facet_wrap(
     . ~ name, 
     labeller = as_labeller(
