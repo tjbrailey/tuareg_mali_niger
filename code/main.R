@@ -39,6 +39,12 @@ df_mali_healthsite   <- read.csv(paste0(fp_data, "/unicef_mali_healthsites.csv")
 df_niger_healthsite  <- readRDS(paste0(fp_data, "/niger_healthsites_multiple_source.rds"))
 df_conflict          <- read.csv(paste0(fp_data, "/acled_conflict_Africa_1997_2022.csv"))
 df_conflict_prio     <- read.csv(paste0(fp_data, "/prio_conflict.csv"))
+df_polityV           <- readxl::read_xls(paste0(fp_data, "/polityV.xls"))
+
+######################################################################################################################################################
+###### read in user-defined functions
+
+source(paste0(fp_code, "/fxn_all_functions.R"))
 
 ######################################################################################################################################################
 ###### wrangle data
@@ -56,7 +62,7 @@ source(paste0(fp_code, "/vis_cpa_implementation.R"))
 
 source(paste0(fp_code, "/tab_country_characteristics.R"))
 
-source(paste0(fp_code, "/tab_health_services.R"))
+source(paste0(fp_code, "/vis_health_services.R"))
 
 source(paste0(fp_code, "/tab_conflict.R"))
 

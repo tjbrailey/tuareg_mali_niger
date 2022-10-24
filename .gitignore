@@ -2,3 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+data/acled_conflict_africa_1997_2022.csv
+data/mali_data_portal_outcomes_2000-2017.csv
+data/mali_schools_no_dates_or_geocodes.xlsx
+data/polityV.xls
+data/V-Dem-CY-Full+Others-v12.rds
