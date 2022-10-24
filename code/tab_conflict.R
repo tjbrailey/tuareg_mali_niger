@@ -104,7 +104,7 @@ plot_conflict_all_years <- df_conflict %>%
         incidents = "Incidents"))) + 
   labs(x = "Year", y = "Raw count", color = "", linetype = "") +   
   theme_minimal() +
-  theme(text = element_text(size = 36, family = "Times"),
+  theme(text = element_text(size = 18, family = "Times"),
         legend.position = c(0.1,1))
 plot_conflict_all_years
 
