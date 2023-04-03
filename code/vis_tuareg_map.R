@@ -4,11 +4,11 @@
 # Create plot
 plot_tuareg_map <- 
   ggplot() +
-  geom_sf(data = df_shp_tuareg, fill = "#e6d073", aes(color = "Tuareg Region"), alpha = .7) +
+  geom_sf(data = df_shp_tuareg, fill = "gray", aes(color = "Tuareg Region"), alpha = .7) +
   geom_sf(data = df_shp_africa, color = "gray", fill = NA) +
   geom_sf(data = df_shp_mali, color = "black", fill = NA) +
   geom_sf(data = df_shp_niger, color = "black", fill = NA) +
-  scale_color_manual(values = "#e6d073") +
+  scale_color_manual(values = "gray") +
   labs(color = "") +
   coord_sf(xlim = c(-18, 20), ylim = c(0, 28)) +
   theme_void() + 

@@ -50,7 +50,8 @@ plot_provis_imp <-
                "refug_implem" = "Refugees",
                "reint_implem" = "Reintegration",
                "time_implem" = "Detailed timeline",
-               "with_implem" = "Withdrawal of troops")) +
+               "with_implem" = "Withdrawal of troops"
+               )) +
   facet_wrap(. ~ country, ncol = 1) +
   labs(x = "Year", y = "Successful implementation of provisions", fill = "") + 
   theme_classic() + 

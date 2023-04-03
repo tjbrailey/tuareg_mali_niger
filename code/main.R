@@ -5,7 +5,7 @@
 ###### preliminaries
 
 rm(list = ls())
-options(scipen = 999)
+#options(scipen = 999)
 gc()
 
 library(ggplot2)
@@ -40,6 +40,7 @@ df_niger_healthsite  <- readRDS(paste0(fp_data, "/niger_healthsites_multiple_sou
 df_conflict          <- read.csv(paste0(fp_data, "/acled_conflict_Africa_1997_2022.csv"))
 df_conflict_prio     <- read.csv(paste0(fp_data, "/prio_conflict.csv"))
 df_polityV           <- readxl::read_xls(paste0(fp_data, "/polityV.xls"))
+df_dhs_spatial       <- readRDS(here::here("data", "dhs_clean", "ml_ni_spatial.rds"))
 
 ######################################################################################################################################################
 ###### read in user-defined functions

@@ -27,9 +27,16 @@ df_sub2 <- dplyr::select(df_sub, where(~ sum(!is.na(.x)) > 0))
 
 Amelia::missmap(df_sub2)
 
-df_sub2$v2x_divparctrl
+df_sub2$v2x_liberal
+
+#v2psorgs: How many political parties for national-level office have permanent organizations?
+#v2x_libdem: liberal democracy index
+#v2x_accountability: accountability index
 
 ggplot() +
-  geom_line(data = df_sub2, mapping = aes(x = year, y = v2x_divparctrl, color = country_name), alpha = 1, size = 1) + 
+  geom_line(data = df_sub2, mapping = aes(x = year, y = v2x_accountability, color = country_name), alpha = 1, size = 1) + 
   geom_vline(xintercept = 2000, linetype = "dashed") + 
-  scale_x_continuous(limits = c(1900, 2020), breaks = seq(1900, 2020, 20))
+  scale_x_continuous(limits = c(1979, 2020), breaks = seq(1979, 2020, 5)) + 
+  labs(x = "Year", color = "Country") + 
+  theme_classic() + 
+  theme(aspect.ratio = 1)
