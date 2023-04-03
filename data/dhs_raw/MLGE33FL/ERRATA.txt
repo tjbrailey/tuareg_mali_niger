@@ -1,0 +1,51 @@
+email sent March 2012
+
+
+Dear DHS GPS Data User,
+
+We are contacting you because you downloaded a previous version of the Mali 1996 DHS GPS data.  
+
+The data named MLGE32FL had 32 points with incorrect urban/rural definitions.   
+
+The following cluster's urban_rural values have been changed from rural to urban: 
+
+229
+230
+231
+232
+233
+234
+235
+236
+239
+241
+237
+238
+240
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+
+
+These issues have been resolved in the newly issued data file MLGE33FL. Please use these data for any analyses and disregard the previous data file.  
+We apologize for any confusion this may cause you.   
+
+MEASURE DHS
+GIS Team
+gpsrequests@measuredhs.com
